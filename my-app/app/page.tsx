@@ -1,12 +1,11 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import HeroSection from "../components/hero";
 
 export default function Home() {
   return (
     <div className="mt-40 flex justify-center">
-      <Button variant="destructive">
-        Subscribe to RoadsideCoder
-      </Button>
+      <HeroSection />
     </div>
   );
 }

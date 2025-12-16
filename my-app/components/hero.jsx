@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const HeroSection = () => {
     return (
@@ -9,8 +10,8 @@ const HeroSection = () => {
             <div className="max-w-4xl mx-auto text-center">
 
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                    உங்கள் நிதியை நிர்வகிக்கவும் <br />
-                    <span className="text-blue-600">AI அறிவுடன்</span>
+                    Manage your finances<br />
+                    <span className="text-blue-600">with AI intelligence</span>
                 </h1>
 
                 <p className="text-gray-600 text-lg mb-8">
@@ -18,7 +19,7 @@ const HeroSection = () => {
                     analyze, and optimize your spending with real-time insights.
                 </p>
 
-                <div className="flex justify-center gap-4">
+                <div className="flex justify-center gap-4 mb-10">
                     <Link href="/dashboard">
                         <button className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
                             Get Started
@@ -31,8 +32,16 @@ const HeroSection = () => {
                         </button>
                     </Link>
                 </div>
-                <div>
 
+                <div>
+                    <Image
+                        src="/banner1.png"
+                        width={1280}
+                        height={720}
+                        alt="Dashboard Preview"
+                        className="rounded-lg shadow-2xl border mx-auto"
+                        priority
+                    />
                 </div>
 
             </div>

@@ -33,7 +33,7 @@ export default function RootLayout({
           {/* Footer */}
           <footer className="bg-blue-50 py-5">
             <div className="container mx-auto px-4 text-center text-gray-600">
-              <p>Made with code 💻</p>
+              <p>Made with code </p>
             </div>
           </footer>
         </body>

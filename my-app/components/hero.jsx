@@ -10,8 +10,8 @@ const HeroSection = () => {
             <div className="max-w-4xl mx-auto text-center">
 
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                    Manage your finances<br />
-                    <span className="text-blue-600">with AI intelligence</span>
+                    Manage Your Finances<br />
+                    <span className="text-blue-600">With AI Intelligence</span>
                 </h1>
 
                 <p className="text-gray-600 text-lg mb-8">

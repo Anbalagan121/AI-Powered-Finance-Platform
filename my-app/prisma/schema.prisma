@@ -1,0 +1,134 @@
+//////////////////////////////////////////////////
+// GENERATOR
+//////////////////////////////////////////////////
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+//////////////////////////////////////////////////
+// DATASOURCE (ONLY DATABASE_URL)
+//////////////////////////////////////////////////
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//////////////////////////////////////////////////
+// MODELS
+//////////////////////////////////////////////////
+
+model User {
+  id           String   @id @default(uuid())
+  clerkUserId  String   @unique
+  email        String   @unique
+  name         String?
+  imageUrl     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  accounts     Account[]
+  transactions Transaction[]
+  budgets      Budget[]
+
+  @@map("users")
+}
+
+//////////////////////////////////////////////////
+// ACCOUNT
+//////////////////////////////////////////////////
+model Account {
+  id        String      @id @default(uuid())
+  name      String
+  type      AccountType
+  balance   Decimal     @default(0) @db.Decimal(12, 2)
+  isDefault Boolean     @default(false)
+
+  userId    String
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  transactions Transaction[]
+
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  @@index([userId])
+  @@map("accounts")
+}
+
+//////////////////////////////////////////////////
+// TRANSACTION
+//////////////////////////////////////////////////
+model Transaction {
+  id                String            @id @default(uuid())
+  type              TransactionType
+  amount            Decimal           @db.Decimal(12, 2)
+  description       String?
+  date              DateTime
+  category          String
+  receiptUrl        String?
+
+  isRecurring       Boolean           @default(false)
+  recurringInterval RecurringInterval?
+  nextRecurringDate DateTime?
+  lastProcessed     DateTime?
+
+  status            TransactionStatus @default(COMPLETED)
+
+  userId            String
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  accountId         String
+  account           Account           @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@index([userId])
+  @@index([accountId])
+  @@map("transactions")
+}
+
+//////////////////////////////////////////////////
+// BUDGET
+//////////////////////////////////////////////////
+model Budget {
+  id            String   @id @default(uuid())
+  amount        Decimal  @db.Decimal(12, 2)
+  lastAlertSent DateTime?
+
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId])
+  @@map("budgets")
+}
+
+//////////////////////////////////////////////////
+// ENUMS
+//////////////////////////////////////////////////
+enum AccountType {
+  CURRENT
+  SAVINGS
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
+}
+
+enum RecurringInterval {
+  DAILY
+  WEEKLY
+  MONTHLY
+  YEARLY
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}

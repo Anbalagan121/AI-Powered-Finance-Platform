@@ -1,7 +1,8 @@
 import HeroSection from "../components/hero";
+import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 
-/* ===== STATS DATA ===== */
+/* ===== DATA ===== */
 const statsData = [
   { value: "50K+", label: "Active Users" },
   { value: "₹2 Crore", label: "Transactions Tracked" },
@@ -9,193 +10,131 @@ const statsData = [
   { value: "4.9/5", label: "User Rating" },
 ];
 
-/* ===== FEATURES DATA ===== */
 const featuresData = [
-  {
-    icon: "📊",
-    title: "Advanced Analytics",
-    description:
-      "Get detailed insights into your spending patterns with AI-powered analytics",
-  },
-  {
-    icon: "🧾",
-    title: "Smart Receipt Scanner",
-    description:
-      "Extract data automatically from receipts using advanced AI technology",
-  },
-  {
-    icon: "🥧",
-    title: "Budget Planning",
-    description:
-      "Create and manage budgets with intelligent recommendations",
-  },
-  {
-    icon: "💳",
-    title: "Multi-Account Support",
-    description:
-      "Manage multiple accounts and credit cards in one place",
-  },
-  {
-    icon: "🌍",
-    title: "Multi-Currency",
-    description:
-      "Support for multiple currencies with real-time conversion",
-  },
-  {
-    icon: "⚡",
-    title: "Automated Insights",
-    description:
-      "Get automated financial insights and recommendations",
-  },
+  { icon: "📊", title: "Advanced Analytics", desc: "AI powered insights for better decisions" },
+  { icon: "🧾", title: "Receipt Scanner", desc: "Scan & auto-track expenses instantly" },
+  { icon: "🥧", title: "Budget Planning", desc: "Smart budgeting suggestions" },
+  { icon: "💳", title: "Multi-Account", desc: "All accounts in one dashboard" },
+  { icon: "🌍", title: "Multi-Currency", desc: "Real-time currency conversion" },
+  { icon: "⚡", title: "Auto Insights", desc: "Daily financial recommendations" },
 ];
 
-/* ===== HOW IT WORKS DATA ===== */
 const howItWorksData = [
-  {
-    icon: "📝",
-    title: "1. Create Your Account",
-    description:
-      "Sign up easily with a simple and secure registration process",
-  },
-  {
-    icon: "📈",
-    title: "2. Track Your Spending",
-    description:
-      "Automatically track and categorize your daily transactions",
-  },
-  {
-    icon: "🤖",
-    title: "3. Get Smart Insights",
-    description:
-      "Receive AI-powered insights to improve your financial decisions",
-  },
+  { icon: "📝", title: "Create Account", desc: "Quick and secure signup" },
+  { icon: "📈", title: "Track Spending", desc: "Automatic transaction tracking" },
+  { icon: "🤖", title: "AI Insights", desc: "Improve money habits using AI" },
 ];
 
-/* ===== TESTIMONIALS DATA (REALISTIC IMAGES) ===== */
 const testimonialsData = [
-  {
-    name: "Sarah Johnson",
-    role: "Small Business Owner",
-    image: "https://randomuser.me/api/portraits/women/75.jpg",
-    quote:
-      "This platform completely changed how I manage my finances. The insights are incredibly accurate and helpful.",
-  },
-  {
-    name: "Michael Chen",
-    role: "Freelancer",
-    image: "https://randomuser.me/api/portraits/men/32.jpg",
-    quote:
-      "Expense tracking is now effortless. I save hours every month thanks to automated reports.",
-  },
-  {
-    name: "Emily Rodriguez",
-    role: "Financial Advisor",
-    image: "https://randomuser.me/api/portraits/women/68.jpg",
-    quote:
-      "I recommend this app to all my clients. Clean UI, powerful analytics, and reliable performance.",
-  },
+  { name: "Sarah Johnson", role: "Business Owner", img: "https://randomuser.me/api/portraits/women/75.jpg", quote: "Changed how I manage money." },
+  { name: "Michael Chen", role: "Freelancer", img: "https://randomuser.me/api/portraits/men/32.jpg", quote: "Saves me hours every month." },
+  { name: "Emily Rodriguez", role: "Advisor", img: "https://randomuser.me/api/portraits/women/68.jpg", quote: "Highly recommended platform." },
 ];
 
 export default function Home() {
   return (
-    <div className="mt-40 flex flex-col items-center gap-24">
-      <HeroSection />
+    <div className="mt-40 flex flex-col gap-32 overflow-hidden">
 
-      {/* ===== Stats Section ===== */}
-      <section className="py-20 bg-blue-50 w-full">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {statsData.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-gray-600">{stat.label}</div>
-              </div>
-            ))}
-          </div>
+      {/* HERO */}
+      <div className="animate-float">
+        <HeroSection />
+      </div>
+
+      {/* STATS */}
+      <section className="py-20 bg-gradient-to-r from-blue-50 to-blue-100">
+        <div className="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-10">
+          {statsData.map((s, i) => (
+            <div
+              key={i}
+              className="text-center bg-white rounded-xl p-6 shadow hover:scale-105 transition duration-300"
+            >
+              <h3 className="text-3xl font-bold text-blue-600">{s.value}</h3>
+              <p className="text-gray-600 mt-2">{s.label}</p>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* ===== Features Section ===== */}
-      <section className="py-20 w-full">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Everything you need to manage your finances
-          </h2>
+      {/* FEATURES */}
+      <section className="py-20">
+        <h2 className="text-4xl font-bold text-center mb-16">
+          Powerful Features
+        </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuresData.map((feature, index) => (
-              <Card key={index} className="p-6 text-center">
-                <CardContent>
-                  <div className="text-4xl mb-4">{feature.icon}</div>
-                  <h3 className="text-xl font-semibold mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600">
-                    {feature.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+          {featuresData.map((f, i) => (
+            <Card
+              key={i}
+              className="hover:-translate-y-4 hover:shadow-2xl transition-all duration-300"
+            >
+              <CardContent className="p-8 text-center">
+                <div className="text-5xl mb-4">{f.icon}</div>
+                <h3 className="text-xl font-semibold mb-2">{f.title}</h3>
+                <p className="text-gray-600">{f.desc}</p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </section>
 
-      {/* ===== How It Works ===== */}
-      <section className="py-20 bg-blue-50 w-full">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-16">
-            How It Works
-          </h2>
+      {/* HOW IT WORKS */}
+      <section className="py-20 bg-blue-50">
+        <h2 className="text-4xl font-bold text-center mb-20">How It Works</h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {howItWorksData.map((step, index) => (
-              <div
-                key={index}
-                className="text-center bg-white p-6 rounded-lg shadow"
-              >
-                <div className="text-4xl mb-4">{step.icon}</div>
-                <h3 className="text-xl font-semibold mb-2">
-                  {step.title}
-                </h3>
-                <p className="text-gray-600">
-                  {step.description}
-                </p>
-              </div>
-            ))}
-          </div>
+        <div className="container mx-auto grid md:grid-cols-3 gap-12">
+          {howItWorksData.map((s, i) => (
+            <div
+              key={i}
+              className="bg-white p-8 rounded-xl shadow text-center hover:scale-105 transition"
+            >
+              <div className="text-5xl mb-4">{s.icon}</div>
+              <h3 className="text-xl font-semibold mb-2">{s.title}</h3>
+              <p className="text-gray-600">{s.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* ===== Testimonials ===== */}
-      <section className="py-20 w-full">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-16">
-            What Our Users Say
-          </h2>
+      {/* TESTIMONIALS */}
+      <section className="py-20">
+        <h2 className="text-4xl font-bold text-center mb-16">
+          Loved by Users
+        </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonialsData.map((user, index) => (
-              <div
-                key={index}
-                className="bg-white p-6 rounded-lg shadow text-center"
-              >
-                <img
-                  src={user.image}
-                  alt={user.name}
-                  className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
-                />
-                <h3 className="text-lg font-semibold">{user.name}</h3>
-                <p className="text-sm text-gray-500 mb-3">{user.role}</p>
-                <p className="text-gray-600 italic">
-                  “{user.quote}”
-                </p>
-              </div>
-            ))}
-          </div>
+        <div className="container mx-auto grid md:grid-cols-3 gap-10">
+          {testimonialsData.map((t, i) => (
+            <div
+              key={i}
+              className="bg-white p-8 rounded-xl text-center shadow animate-glow"
+            >
+              <img
+                src={t.img}
+                className="w-20 h-20 rounded-full mx-auto mb-4"
+              />
+              <h3 className="font-semibold">{t.name}</h3>
+              <p className="text-sm text-gray-500">{t.role}</p>
+              <p className="italic text-gray-600 mt-4">“{t.quote}”</p>
+            </div>
+          ))}
         </div>
       </section>
+
+      {/* CTA */}
+      <section className="py-24 bg-blue-600 text-center text-white">
+        <h2 className="text-4xl font-bold mb-6">
+          Take Control of Your Finances Today
+        </h2>
+        <p className="max-w-xl mx-auto mb-10 text-blue-100">
+          Smart money management powered by AI
+        </p>
+
+        <Link href="/dashboard">
+          <button className="bg-white text-blue-600 px-10 py-4 rounded-xl font-bold text-lg hover:scale-110 transition animate-bounce">
+            Get Started Free
+          </button>
+        </Link>
+      </section>
+
     </div>
   );
 }

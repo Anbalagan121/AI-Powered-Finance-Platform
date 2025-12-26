@@ -3,8 +3,8 @@
 //////////////////////////////////////////////////
 generator client {
   provider = "prisma-client-js"
-  output   = "../lib/generated/prisma"
 }
+
 
 //////////////////////////////////////////////////
 // DATASOURCE (ONLY DATABASE_URL)

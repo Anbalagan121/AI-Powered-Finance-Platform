@@ -20,44 +20,40 @@ const Header = () => {
                 <Link href="/">
                     <Image
                         src="/logo.png"
-                        alt="money image"
-                        height={60}
+                        alt="logo"
                         width={200}
+                        height={60}
                         className="h-12 w-auto object-contain"
+                        priority
                     />
                 </Link>
 
-                {/* Auth Buttons */}
-                <div className="flex items-center space-x-4">
+                {/* Right Section */}
+                <div className="flex items-center gap-4">
                     <SignedIn>
-                        <Link href={"/dashboard"} className="text-gray-600 hover:text-blue-600 flex item-center gap-2">
-                            <Button variant="outline">
+                        <Link href="/dashboard">
+                            <Button variant="outline" className="flex items-center gap-2">
                                 <LayoutDashboard size={18} />
                                 <span className="hidden md:inline">Dashboard</span>
                             </Button>
-
                         </Link>
-                        <Link href={"/transaction/create"}>
-                            <Button className="flex item-center gap-2">
+
+                        <Link href="/transaction/create">
+                            <Button className="flex items-center gap-2">
                                 <PenBox size={18} />
                                 <span className="hidden md:inline">Add Transaction</span>
                             </Button>
-
                         </Link>
                     </SignedIn>
+
                     <SignedOut>
-                        <SignInButton
-                            mode="modal"
-                            forceRedirectUrl="/dashboard"
-                        >
+                        <SignInButton mode="modal" forceRedirectUrl="/dashboard">
                             <Button variant="outline">Login</Button>
                         </SignInButton>
                     </SignedOut>
 
                     <SignedIn>
-                        <UserButton appearance={{
-
-                        }} />
+                        <UserButton />
                     </SignedIn>
                 </div>
             </nav>

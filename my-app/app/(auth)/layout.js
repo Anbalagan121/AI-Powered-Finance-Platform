@@ -1,11 +1,12 @@
-import React from "react";
+import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
 
-const AuthLayout = ({ children }) => {
+export default function RootLayout({ children }) {
   return (
-    <div className="flex justify-center pt-40">
-      {children}
-    </div>
+    <ClerkProvider>
+      <html lang="en">
+        <body>{children}</body>
+      </html>
+    </ClerkProvider>
   );
-};
-
-export default AuthLayout;
+}

@@ -1,8 +1,11 @@
-import React from 'react'
+"use client";
+
 import { SignIn } from "@clerk/nextjs";
-const page = () => {
-    return <SignIn />
+
+export default function Page() {
+    return (
+        <div className="flex min-h-screen items-center justify-center">
+            <SignIn routing="path" path="/sign-in" />
+        </div>
+    );
 }
-
-export default page
-

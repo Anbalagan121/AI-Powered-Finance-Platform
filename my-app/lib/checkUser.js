@@ -2,25 +2,36 @@ import { currentUser } from "@clerk/nextjs/server";
 import { db } from "@/lib/prisma";
 
 export const checkUser = async () => {
-  const user = await currentUser();
-  if (!user) return null;
+  try {
+    const user = await currentUser();
 
-  const existingUser = await db.user.findUnique({
-    where: {
-      clerkUserId: user.id,
-    },
-  });
+    if (!user || !user.id) {
+      return null;
+    }
 
-  if (existingUser) return existingUser;
+    const existingUser = await db.user.findUnique({
+      where: {
+        clerkUserId: user.id,
+      },
+    });
 
-  const name = `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim();
+    if (existingUser) return existingUser;
 
-  return await db.user.create({
-    data: {
-      clerkUserId: user.id,
-      email: user.emailAddresses[0].emailAddress,
-      name,
-      imageUrl: user.imageUrl,
-    },
-  });
+    const email = user.emailAddresses?.[0]?.emailAddress;
+    if (!email) return null;
+
+    const name = `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim();
+
+    return await db.user.create({
+      data: {
+        clerkUserId: user.id,
+        email,
+        name,
+        imageUrl: user.imageUrl ?? "",
+      },
+    });
+  } catch (error) {
+    console.error("checkUser error:", error);
+    return null;
+  }
 };

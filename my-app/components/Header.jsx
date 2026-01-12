@@ -13,6 +13,9 @@ import { Button } from "@/components/ui/button";
 import { LayoutDashboard, PenBox } from "lucide-react";
 
 const Header = () => {
+    const clerkKey = typeof process !== "undefined" ? process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY : undefined;
+    const enableClerk = !!clerkKey && clerkKey.startsWith("pk_") && !clerkKey.includes("...");
+
     return (
         <header className="fixed top-0 left-0 w-full bg-white shadow z-50 border-b">
             <nav className="flex items-center justify-between px-6 py-3">
@@ -30,31 +33,56 @@ const Header = () => {
 
                 {/* Right Section */}
                 <div className="flex items-center gap-4">
-                    <SignedIn>
-                        <Link href="/dashboard">
-                            <Button variant="outline" className="flex items-center gap-2">
-                                <LayoutDashboard size={18} />
-                                <span className="hidden md:inline">Dashboard</span>
-                            </Button>
-                        </Link>
+                    {enableClerk ? (
+                        <>
+                            <SignedIn>
+                                <Link href="/dashboard">
+                                    <Button variant="outline" className="flex items-center gap-2">
+                                        <LayoutDashboard size={18} />
+                                        <span className="hidden md:inline">Dashboard</span>
+                                    </Button>
+                                </Link>
 
-                        <Link href="/transaction/create">
-                            <Button className="flex items-center gap-2">
-                                <PenBox size={18} />
-                                <span className="hidden md:inline">Add Transaction</span>
-                            </Button>
-                        </Link>
-                    </SignedIn>
+                                <Link href="/transaction/create">
+                                    <Button className="flex items-center gap-2">
+                                        <PenBox size={18} />
+                                        <span className="hidden md:inline">Add Transaction</span>
+                                    </Button>
+                                </Link>
+                            </SignedIn>
 
-                    <SignedOut>
-                        <SignInButton mode="modal" forceRedirectUrl="/dashboard">
-                            <Button variant="outline">Login</Button>
-                        </SignInButton>
-                    </SignedOut>
+                            <SignedOut>
+                                <SignInButton mode="modal" forceRedirectUrl="/dashboard">
+                                    <Button variant="outline">Login</Button>
+                                </SignInButton>
+                            </SignedOut>
 
-                    <SignedIn>
-                        <UserButton />
-                    </SignedIn>
+                            <SignedIn>
+                                <UserButton />
+                            </SignedIn>
+                        </>
+                    ) : (
+                        // Clerk disabled fallback: basic links/buttons that do not depend on Clerk
+                        <>
+                            <Link href="/dashboard">
+                                <Button variant="outline" className="flex items-center gap-2">
+                                    <LayoutDashboard size={18} />
+                                    <span className="hidden md:inline">Dashboard</span>
+                                </Button>
+                            </Link>
+
+                            <Link href="/transaction/create">
+                                <Button className="flex items-center gap-2">
+                                    <PenBox size={18} />
+                                    <span className="hidden md:inline">Add Transaction</span>
+                                </Button>
+                            </Link>
+
+                            <Link href="/sign-in">
+                                <Button variant="outline">Login</Button>
+                            </Link>
+                        </>
+                    )}
                 </div>
             </nav>
         </header>

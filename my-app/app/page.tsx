@@ -1,5 +1,6 @@
 import HeroSection from "../components/hero";
 import Link from "next/link";
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 
 /* ===== DATA ===== */
@@ -107,8 +108,11 @@ export default function Home() {
               key={i}
               className="bg-white p-8 rounded-xl text-center shadow animate-glow"
             >
-              <img
+              <Image
                 src={t.img}
+                alt={t.name}
+                width={80}
+                height={80}
                 className="w-20 h-20 rounded-full mx-auto mb-4"
               />
               <h3 className="font-semibold">{t.name}</h3>

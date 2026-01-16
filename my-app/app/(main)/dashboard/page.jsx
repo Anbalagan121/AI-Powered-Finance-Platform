@@ -15,7 +15,7 @@ export default function DashboardPage() {
 
     useEffect(() => {
         fetchAccounts();
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className="px-5">

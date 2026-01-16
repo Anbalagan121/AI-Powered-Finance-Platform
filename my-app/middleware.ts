@@ -5,7 +5,7 @@ const clerkSecret = process.env.CLERK_SECRET_KEY;
 const clerkPub = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 const enableClerk = !!clerkSecret && !!clerkPub && clerkPub.startsWith("pk_") && !clerkPub.includes("...");
 
-const exportedMiddleware = enableClerk ? clerkMiddleware() : (request: Request) => {
+const exportedMiddleware = enableClerk ? clerkMiddleware() : (_request: Request) => {
     return NextResponse.next();
 };
 

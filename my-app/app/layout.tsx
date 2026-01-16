@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
-
-const inter = Inter({
-  subsets: ["latin"],
-  fallback: ["system-ui", "Arial"],
-});
 
 export const metadata: Metadata = {
   title: "Money Expenses",
@@ -25,7 +19,7 @@ export default function RootLayout({
   return (
     <ClerkProvider publishableKey={clerkKey}>
       <html lang="en">
-        <body className={inter.className}>
+        <body className="font-sans">
           <Header />
           <main className="min-h-screen pt-20">{children}</main>
           <Toaster />

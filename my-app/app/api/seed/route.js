@@ -1,6 +1,14 @@
-import { seedTransactions } from "../../(main)/dashboard/actions/seed";
+import { seedTransactions, seedWithRetry } from "@actions/seed";
 
 export async function GET() {
-    const result = await seedTransactions();
-    return Response.json(result);
+    try {
+        const result = await seedWithRetry();
+        return Response.json(result);
+    } catch (error) {
+        console.error("Failed to seed after retries:", error);
+        return Response.json(
+            { success: false, error: error.message },
+            { status: 500 }
+        );
+    }
 }

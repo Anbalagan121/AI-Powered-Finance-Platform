@@ -40,6 +40,19 @@ function getRandomCategory(type) {
   return { category: category.name, amount };
 }
 
+async function seedWithRetry(maxRetries = 3) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      return await seedTransactions();
+    } catch (error) {
+      console.error(`Seed attempt ${attempt} failed:`, error.message);
+      if (attempt === maxRetries) throw error;
+      // Exponential backoff: 1s, 2s, 4s
+      await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt - 1) * 1000));
+    }
+  }
+}
+
 export async function seedTransactions() {
   try {
     // Check if account exists, if not create it
@@ -139,3 +152,5 @@ export async function seedTransactions() {
     return { success: false, error: error.message };
   }
 }
+
+export { seedWithRetry };
